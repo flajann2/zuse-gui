@@ -1,0 +1,102 @@
+* Zuse GUI -- Yet nother GUI for Rust                              :TOC_5_gh:
+  - [[#introduction][Introduction]]
+    - [[#inspiration][Inspiration]]
+  - [[#design][Design]]
+  - [[#documentation][Documentation]]
+  - [[#notes][Notes]]
+    - [[#overall-design-approach][Overall design approach]]
+      - [[#widgets][Widgets]]
+        - [[#types-of-widgets-in-the-foundational-system][Types of Widgets in the "foundational" system]]
+      - [[#events-via-signals-and-slots][Events via Signals and Slots]]
+        - [[#widget-states-and-events][Widget states and events]]
+      - [[#styles][Styles]]
+        - [[#tags][Tags]]
+      - [[#layout][Layout]]
+
+** Introduction
+   This is an ambitious project, because I want this to be truly
+   a stellar GUI for Rust application development. I am not
+   aiming primarily at the Web and mobile apps, though there
+   is no reason an adapter could not be written to handle that.
+
+   This is primarly intended to be a 2D and 3D GUI framework to 
+   allow the creation of fluid UI in Rust.
+
+*** Inspiration   
+    React Native is part of the inspiration, but I did not want to 
+    do bindings for React Native, since it primarily targets
+    mobile platforms, and I do not wish to be limited to that domain.
+
+    It is my hope that this is a perfect "platform / framewor" to
+    encourage others to add to it to enhance its functionality. After all,
+    I am just one guy. I cannot do it all!
+** Design
+** Documentation
+** Notes
+   These notes are not meant to be for anyone but me, and I make no promises
+   that my notes will make sense to you, or even be up-to-date, and will
+   most likely be removed from the releases.
+*** Overall design approach
+    Basically, the signals-and-slots crate will be used for
+    communication among the widgets, which shall be described below.
+**** Widgets
+     In Zuse GUI, everything is a "widget", and widgets can either have 
+     zero or more "sub"-widgets, or be a terminal widget, where it will either
+     connect to a native implementation, or do its own rendering.
+
+***** Types of Widgets in the "foundational" system
+      | Widget      | Description                                                                                                     |
+      |-------------+-----------------------------------------------------------------------------------------------------------------|
+      | View        | Collection of other widgets. It basically serves as a container, but does not have its own functionality per se |
+      | Slider      |                                                                                                                 |
+      | List        |                                                                                                                 |
+      | TextBox     |                                                                                                                 |
+      | TextArea    |                                                                                                                 |
+      | Button      |                                                                                                                 |
+      | Checkbox    |                                                                                                                 |
+      | RadioButton |                                                                                                                 |
+      | Dial        |                                                                                                                 |
+
+**** Events via Signals and Slots
+     The Signals and Slots approach is inspired by Qt, but without
+     the inherent limitations of the same. Please see that crate for
+     the details.
+
+***** Widget states and events
+      The widget shall have a notion of "state", which can be read, and
+      of "events" that it generates, which may or may not affect the 
+      "state".
+
+      For example, a text box's state would be the sequence of characters
+      it currently contains, and the event could be a moust button event, which
+      does not alter the contents per-se.
+
+      It may also shift the cursor over the text contained, but unless that
+      text is modified, that does not constitute a change of state.
+
+      Having said that, if said text widget allowes new characters to be inserted through 
+      a slot interation, then the position of the cursor in that  case would be a
+      meaningful state to maintain.
+
+      So it is all based on what agents external to the widget are allowed to see.
+
+**** Styles
+     Styles is an abstraction that imposes style info on the widgets,
+     in a fashion similar to CSS, but without its faults.
+
+***** Tags
+      Widgets and subwidgets will have tags of some sort that would allow
+      the styles to target them. 
+
+**** Layout
+     The Layout engine will be responsible for the dynamic layout -- including
+     animation! -- of the widgets, in both 2D and 3D. Indeed, I do not wish
+     to distinguish much between the two.
+
+     For example, you could have a complex widget that renders 3D charts, and allows for
+     it to be zoomed and rotated. The "canvas" would be set up in OpenGL, for instance,
+     and those details should not affect the implementation here. The layout
+     will be fully responsible for that, and will most likely have tie-ins native
+     side to handle it.
+
+
