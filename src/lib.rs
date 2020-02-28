@@ -1,3 +1,10 @@
+//! Zuse GUI
+
+pub mod widget;
+pub mod layout;
+pub mod style;
+    
+
 #[cfg(test)]
 mod tests {
     #[test]
