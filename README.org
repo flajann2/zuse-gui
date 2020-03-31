@@ -1,4 +1,4 @@
-* Zuse GUI -- Yet nother GUI for Rust                              :TOC_5_gh:
+* Zuse GUI -- Yet another GUI for Rust                             :TOC_5_gh:
   - [[#introduction][Introduction]]
     - [[#inspiration][Inspiration]]
   - [[#design][Design]]
